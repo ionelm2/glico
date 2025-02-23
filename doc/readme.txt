@@ -31,6 +31,9 @@ Commands
 		- (venv) $ flask db upgrade
 	- activate virtual environment
 		- source venv/bin/activate
+
+	- run in debug mode:
+		export FLASK_DEBUG=1
 		
 	
 DB schema:

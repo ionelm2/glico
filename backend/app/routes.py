@@ -11,7 +11,7 @@ from datetime import datetime
 
 @app.route('/')
 @app.route('/index')
-@login_required
+#@login_required
 def index():
     user = {'username': 'Miguel'}
     return render_template('index.html', title='Home')

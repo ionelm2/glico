@@ -1,28 +1,74 @@
 <!doctype html>
 <html>
     <head>
-      {% if title %}
-      <title>{{ title }} - Glico</title>
-      {% else %}
-      <title>Welcome to Glico</title>
-      {% endif %}
+        <style>
+        table, th, tr, td {
+            border: 0px solid black;
+          }
+        </style>
+        {% if title %}
+            <title>{{ title }} - Glico</title>
+        {% else %}
+            <title>Welcome to Glico</title>
+        {% endif %}
     </head>
     <body>
-        <div>Glico: 
-            <a href="{{ url_for('index') }}">Home|</a>
-            <a href="{{ url_for('users') }}">Users|</a>
-            <a href="{{ url_for('adauga_titluri') }}">Adauga Titluri|</a>
-            <a href="{{ url_for('titluri') }}">Titluri|</a>
-            <a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Titluri|</a>
-            <a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Titluri|</a>
-            {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login|</a>
-            {% else %}
-            <a href="{{ url_for('user', username=current_user.username) }}">Profile|</a>
-            <a href="{{ url_for('logout') }}">Logout|</a>
-            <a href="{{ url_for('unregister') }}">Unregister|</a></p>
-            {% endif %}
-        </div>
+        <table style="width:100%">
+            <tr>
+                <td style="width:30vw">
+                    <a href="{{ url_for('index') }}">Home</a>
+                </td>          
+                <td style="width:40vw"></td>
+                <td style="width:30vw;text-align: right">
+                    {% if current_user.is_anonymous %}
+                        <a href="{{ url_for('login') }}">Login</a>
+                    {% else %}
+                        <a href="{{ url_for('user', username=current_user.username) }}">Profile|</a>
+                        <a href="{{ url_for('logout') }}">Logout|</a>
+                        <a href="{{ url_for('unregister') }}">Unregister</a></p>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('titluri') }}">Titluri</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr style="padding-left: 10px;">
+                            <td></td>
+                            <td>
+                                <p><a href="{{ url_for('adauga_titluri') }}">Adauga Titluri</a>
+                                <p><a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Titluri</a>
+                                <p><a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Titluri</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table style="width:100%">
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('titluri') }}">Actiuni</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr style="padding-left: 10px;">
+                            <td></td>
+                            <td>
+                                <p><a href="{{ url_for('adauga_titluri') }}">Adauga Actiuni</a>
+                                <p><a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Actiuni</a>
+                                <p><a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Actiuni</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>         
+        </table> 
         <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -35,5 +81,10 @@
         {% endwith %}
         {% block content %}{% endblock %}
         <hr>
+        <hr>
+        <h3><i>Hidden:</i></h3>
+        <div>
+            <a href="{{ url_for('users') }}">Users</a>  
+        </div>  
     </body>
 </html>
