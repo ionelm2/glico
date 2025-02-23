@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Titluri de stat disponibile:</h1>
+    {% for titlu in titluri %}
+    <div><p>| {{ titlu.type }} | {{ titlu.ticker }} | {{ titlu.currency }} | {{ titlu.broker }} | {{ titlu.period }}  | {{ titlu.enddate }} | {{ titlu.interest }}% |</b></p></div>
+    {% endfor %}
+{% endblock %}

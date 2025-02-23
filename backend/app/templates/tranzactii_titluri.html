@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Tranzactii Titluri de stat:</h1>
+    {% for titlu in tranzactii_titluri %}
+    <div><p>| {{ titlu.date }} | {{ titlu.operation }} | {{ titlu.value }} |{{ titlu.titlu_stat.ticker }}|</b></p></div>
+    {% endfor %}
+{% endblock %}

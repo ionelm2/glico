@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Glico</title>
+      {% else %}
+      <title>Welcome to Glico</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Glico: 
+            <a href="{{ url_for('index') }}">Home|</a>
+            <a href="{{ url_for('users') }}">Users|</a>
+            <a href="{{ url_for('adauga_titluri') }}">Adauga Titluri|</a>
+            <a href="{{ url_for('titluri') }}">Titluri|</a>
+            <a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Titluri|</a>
+            <a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Titluri|</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Login|</a>
+            {% else %}
+            <a href="{{ url_for('user', username=current_user.username) }}">Profile|</a>
+            <a href="{{ url_for('logout') }}">Logout|</a>
+            <a href="{{ url_for('unregister') }}">Unregister|</a></p>
+            {% endif %}
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+        <hr>
+    </body>
+</html>

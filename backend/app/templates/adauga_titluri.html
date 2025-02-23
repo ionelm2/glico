@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Titluri de stat</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.type.label }}<br>
+            {{ form.type(size=32) }}<br>
+            {% for error in form.type.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.ticker.label }}<br>
+            {{ form.ticker(size=32) }}<br>
+            {% for error in form.ticker.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.currency.label }}<br>
+            {{ form.currency(size=32) }}<br>
+            {% for error in form.currency.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.broker.label }}<br>
+            {{ form.broker(size=32) }}<br>
+            {% for error in form.broker.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.period.label }}<br>
+            {{ form.period(size=32) }}<br>
+            {% for error in form.period.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.enddate.label }}<br>
+            {{ form.enddate(size=32) }}<br>
+            {% for error in form.enddate.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.interest.label }}<br>
+            {{ form.interest(size=32) }}<br>
+            {% for error in form.interest.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
