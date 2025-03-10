@@ -44,8 +44,8 @@ class TitluriForm(FlaskForm):
     #enddate = DateField('End Date',default=date.today())
     enddate = DateField('End Date',default=datetime.now().date())
     interest = StringField('Dobanda', validators=[DataRequired()])
-
-    submit = SubmitField('Adauga')
+    
+    #submit = SubmitField('Salveaza')
 
 class TranzactiiTitluriForm(FlaskForm):
     def validate_tickerr(self, ticker):

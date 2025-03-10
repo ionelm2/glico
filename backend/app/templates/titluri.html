@@ -1,8 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
  
-    <h1>Titluri de stat disponibile:</h1>
-    {% for titlu in titluri %}
-    <div><p>| {{ titlu.type }} | {{ titlu.ticker }} | {{ titlu.currency }} | {{ titlu.broker }} | {{ titlu.period }}  | {{ titlu.enddate }} | {{ titlu.interest }}% |</b></p></div>
-    {% endfor %}
+    <h1>Titluri de stat</h1>
+    <table style="width:50vw">
+        {% set header = namespace(show=true) %}
+        {% for titlu in titluri %}
+            {% if header.show is true %}
+                <tr>
+                    <th>Tip</th>
+                    <th>Ticker</th>
+                    <th>Moneda</th>
+                    <th>Broker</th>
+                    <th>Perioada</th>
+                    <th>Scadenta</th>
+                    <th>Dobanda</th>
+                </tr>
+                {% set header.show = false %}
+            {% endif %}
+    
+            <tr>
+                <td>{{ titlu.type }}</td>
+                <td>{{ titlu.ticker }}</td>
+                <td>{{ titlu.currency }}</td>
+                <td>{{ titlu.broker }}</td>
+                <td>{{ titlu.period }}</td>
+                <td>{{ titlu.enddate }}</td>
+                <td>{{ titlu.interest }}</td> 
+                <td><a href="{{ url_for('edit_titluri',ticker= titlu.ticker ) }}">Edit</a> </td>
+            </tr>        
+        {% endfor %}
+    </table>
 {% endblock %}

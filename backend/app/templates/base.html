@@ -4,7 +4,10 @@
         <style>
         table, th, tr, td {
             border: 0px solid black;
-          }
+        }
+        th {
+            text-align: left;
+        }
         </style>
         {% if title %}
             <title>{{ title }} - Glico</title>
@@ -33,14 +36,14 @@
                 <td>
                     <table style="width:100%">
                         <tr>
-                            <td>
-                                <a href="{{ url_for('titluri') }}">Titluri</a>
+                            <td><h4>Titluri
                             </td>
                             <td></td>
                         </tr>
                         <tr style="padding-left: 10px;">
                             <td></td>
                             <td>
+                                <p><a href="{{ url_for('titluri') }}">Titluri</a>
                                 <p><a href="{{ url_for('adauga_titluri') }}">Adauga Titluri</a>
                                 <p><a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Titluri</a>
                                 <p><a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Titluri</a>
@@ -51,14 +54,14 @@
                 <td>
                     <table style="width:100%">
                         <tr>
-                            <td>
-                                <a href="{{ url_for('titluri') }}">Actiuni</a>
+                            <td><h4>Titluri
                             </td>
                             <td></td>
                         </tr>
                         <tr style="padding-left: 10px;">
                             <td></td>
                             <td>
+                                <p><a href="{{ url_for('titluri') }}">Actiuni</a></p>
                                 <p><a href="{{ url_for('adauga_titluri') }}">Adauga Actiuni</a>
                                 <p><a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Actiuni</a>
                                 <p><a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Actiuni</a>

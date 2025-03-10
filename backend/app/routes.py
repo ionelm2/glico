@@ -91,6 +91,36 @@ def adauga_titluri():
         return redirect(url_for('index'))
     return render_template('adauga_titluri.html', title='Adauga Titluri de stat', form=form)
 
+def search_titlu_by_ticker(ticker):
+    query = sa.select(TitluriStat).where(TitluriStat.ticker == ticker)
+    titlu = db.session.scalars(query).first()
+    return titlu
+
+@app.route('/edit_titluri/<ticker>', methods=['GET', 'POST'])
+def edit_titluri(ticker):
+    emisiune = search_titlu_by_ticker(ticker)
+    if emisiune:
+        form = TitluriForm(formdata=request.form, obj=emisiune)
+        if form.validate_on_submit():
+            titluStat = TitluriStat(type=form.type.data, ticker=form.ticker.data, currency=form.currency.data, 
+                                    broker=form.broker.data, period=form.period.data, enddate=form.enddate.data, 
+                                    interest=form.interest.data)
+            
+            emisiune.type = titluStat.type
+            emisiune.ticker = titluStat.ticker
+            emisiune.currency = titluStat.currency
+            emisiune.broker = titluStat.broker
+            emisiune.period = titluStat.period
+            emisiune.enddate = titluStat.enddate
+            emisiune.interest = titluStat.interest
+
+            db.session.commit()
+            flash('Felicitari, ai editat titluri de stat!')
+            return redirect(url_for('index'))
+        return render_template('edit_titluri.html', title='Editeaza Titluri de stat', form=form)
+    else:
+        return 'Error loading #{id}'.format(id=ticker)
+
 @app.route('/titluri', methods=['GET'])
 def titluri():
     # trigger exception
