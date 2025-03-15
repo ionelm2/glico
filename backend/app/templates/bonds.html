@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
  
-    <h1>Titluri de stat</h1>
+    <h1>Bond de stat</h1>
     <table style="width:50vw">
         {% set header = namespace(show=true) %}
-        {% for titlu in titluri %}
+        {% for titlu in Bond %}
             {% if header.show is true %}
                 <tr>
                     <th>Tip</th>
@@ -26,7 +26,7 @@
                 <td>{{ titlu.period }}</td>
                 <td>{{ titlu.enddate }}</td>
                 <td>{{ titlu.interest }}</td> 
-                <td><a href="{{ url_for('edit_titluri',ticker= titlu.ticker ) }}">Edit</a> </td>
+                <td><a href="bond/{{ titlu.ticker }}/edit">Edit</a> </td>
             </tr>        
         {% endfor %}
     </table>

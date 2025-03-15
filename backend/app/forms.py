@@ -5,7 +5,7 @@ from wtforms.fields import DateField
 from datetime import datetime
 import sqlalchemy as sa
 from app import db
-from app.models import User, TitluriStat
+from app.models import User, Bond
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -33,7 +33,7 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
-class TitluriForm(FlaskForm):
+class BondForm(FlaskForm):
     # TODO: change in template with <select ...> to allowe selecting the type
     type = StringField('Tip', validators=[DataRequired()])
     ticker = StringField('Cod Emisiune', validators=[DataRequired()])
@@ -47,17 +47,17 @@ class TitluriForm(FlaskForm):
     
     #submit = SubmitField('Salveaza')
 
-class TranzactiiTitluriForm(FlaskForm):
-    def validate_tickerr(self, ticker):
-        tick = db.session.scalar(sa.select(TitluriStat).where(
-            TitluriStat.ticker == ticker.data))
+class BondTransactionForm(FlaskForm):
+    def validate_ticker(self, ticker):
+        tick = db.session.scalar(sa.select(Bond).where(
+            Bond.ticker == ticker.data))
         if tick is None:
             raise ValidationError('Please use a different username.')
         
-    ticker = StringField('Cod Emisiune', validators=[DataRequired(),validate_tickerr])
+    ticker = StringField('Cod Emisiune', validators=[DataRequired(),validate_ticker])
     date = StringField('Data', default=datetime.now().date())
     operation = StringField('Operatie', validators=[DataRequired()])
-    valoare = StringField('Valoare', validators=[DataRequired()])
+    amount = StringField('Valoare', validators=[DataRequired()])
 
     submit = SubmitField('Adauga')
 

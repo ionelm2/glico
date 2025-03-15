@@ -1,10 +1,10 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, RegistrationForm, TitluriForm, TranzactiiTitluriForm
+from app.forms import LoginForm, RegistrationForm, BondForm, BondTransactionForm
 from flask_login import current_user, login_user, logout_user, login_required
 import sqlalchemy as sa
 from app import db
-from app.models import User, TitluriStat, TranzactiiTitluri
+from app.models import User, Bond, BondTransactions
 from flask import request
 from urllib.parse import urlsplit
 from datetime import datetime
@@ -78,31 +78,31 @@ def user(username):
     user = db.first_or_404(sa.select(User).where(User.username == username))
     return render_template('user.html', user=user)
 
-@app.route('/adauga_titluri', methods=['GET', 'POST'])
-def adauga_titluri():
-    form = TitluriForm()
+@app.route('/bond/create', methods=['GET', 'POST'])
+def add_bond():
+    form = BondForm()
     if form.validate_on_submit():
-        titluStat = TitluriStat(type=form.type.data, ticker=form.ticker.data, currency=form.currency.data, 
+        bond = Bond(type=form.type.data, ticker=form.ticker.data, currency=form.currency.data, 
                                 broker=form.broker.data, period=form.period.data, enddate=form.enddate.data, 
                                 interest=form.interest.data)
-        db.session.add(titluStat)
+        db.session.add(bond)
         db.session.commit()
-        flash('Felicitari, ai inregistrat titluri de stat!')
+        flash('Felicitari, ai inregistrat Titlu de stat!')
         return redirect(url_for('index'))
-    return render_template('adauga_titluri.html', title='Adauga Titluri de stat', form=form)
+    return render_template('add_bond.html', title='Adauga Bond de stat', form=form)
 
 def search_titlu_by_ticker(ticker):
-    query = sa.select(TitluriStat).where(TitluriStat.ticker == ticker)
+    query = sa.select(Bond).where(Bond.ticker == ticker)
     titlu = db.session.scalars(query).first()
     return titlu
 
-@app.route('/edit_titluri/<ticker>', methods=['GET', 'POST'])
-def edit_titluri(ticker):
+@app.route('/bond/<ticker>/edit', methods=['GET', 'POST'])
+def edit_bond(ticker):
     emisiune = search_titlu_by_ticker(ticker)
     if emisiune:
-        form = TitluriForm(formdata=request.form, obj=emisiune)
+        form = BondForm(formdata=request.form, obj=emisiune)
         if form.validate_on_submit():
-            titluStat = TitluriStat(type=form.type.data, ticker=form.ticker.data, currency=form.currency.data, 
+            titluStat = Bond(type=form.type.data, ticker=form.ticker.data, currency=form.currency.data, 
                                     broker=form.broker.data, period=form.period.data, enddate=form.enddate.data, 
                                     interest=form.interest.data)
             
@@ -115,43 +115,43 @@ def edit_titluri(ticker):
             emisiune.interest = titluStat.interest
 
             db.session.commit()
-            flash('Felicitari, ai editat titluri de stat!')
+            flash('Felicitari, ai editat Bond de stat!')
             return redirect(url_for('index'))
-        return render_template('edit_titluri.html', title='Editeaza Titluri de stat', form=form)
+        return render_template('edit_bond.html', title='Editeaza Bond de stat', form=form)
     else:
         return 'Error loading #{id}'.format(id=ticker)
 
-@app.route('/titluri', methods=['GET'])
-def titluri():
+@app.route('/bond', methods=['GET'])
+def bond():
     # trigger exception
     #users = db.session.scalar(sa.select(User))
-    titluri = TitluriStat.query.all()
-    return render_template('titluri.html', titluri=titluri)
+    bonds = Bond.query.all()
+    return render_template('bonds.html', Bond=bonds)
 
-@app.route('/adauga_tranzactie_titluri', methods=['GET', 'POST'])
-def adauga_tranzactie_titluri():
-    form = TranzactiiTitluriForm()
+@app.route('/add_transaction_bond', methods=['GET', 'POST'])
+def add_transaction_bond():
+    form = BondTransactionForm()
     if form.validate_on_submit():
-        query = sa.select(TitluriStat).where(TitluriStat.ticker == form.ticker.data.strip())
+        query = sa.select(Bond).where(Bond.ticker == form.ticker.data.strip())
         titlu = db.session.scalars(query).first()
         #print("date: %s %s" % (form.date.data, type(form.date.data) ))
         #print("date: %s %s" % (datetime.fromisoformat(form.date.data), type(datetime.fromisoformat(form.date.data)) ))
 
         #if titlu is None:
         #   flash("Nu exista titlu inregistrat in DB cu ticker: %s" % (form.ticker.data.strip()))
-        #   return render_template('adauga_tranzactie_titluri.html', title='Adauga Tranzactii Titluri de stat', form=TranzactiiTitluriForm())
+        #   return render_template('add_transaction_bond.html', title='Adauga transaction Bond de stat', form=BondTransactionForm())
 
-        titluStat = TranzactiiTitluri(date=datetime.fromisoformat(form.date.data), operation=form.operation.data, value=form.valoare.data, titlu_stat=titlu)
+        titluStat = BondTransactions(date=datetime.fromisoformat(form.date.data), operation=form.operation.data, value=form.amount.data, bond=titlu)
         db.session.add(titluStat)
         db.session.commit()
-        flash('Felicitari, ai inregistrat tranzactie titluri de stat!')
+        flash('Felicitari, ai inregistrat tranzactie Bond de stat!')
         return redirect(url_for('index'))
-    return render_template('adauga_tranzactie_titluri.html', title='Adauga Tranzactii Titluri de stat', form=form)
+    return render_template('add_transaction_bond.html', title='Adauga transaction Bond de stat', form=form)
 
-@app.route('/tranzactii_titluri', methods=['GET'])
-def tranzactii_titluri():
+@app.route('/transaction_bond', methods=['GET'])
+def transaction_Bond():
     # trigger exception
     #users = db.session.scalar(sa.select(User))
-    tranzactii_titluri = TranzactiiTitluri.query.all()
+    transaction_Bond = BondTransactions.query.all()
     
-    return render_template('tranzactii_titluri.html', tranzactii_titluri=tranzactii_titluri)
+    return render_template('transaction_bond.html', transaction_Bond=transaction_Bond)

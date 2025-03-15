@@ -1,8 +1,8 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import app, db
-from app.models import User, TitluriStat
+from app.models import User, Bond
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'sa': sa, 'so': so, 'db': db, 'User': User, "titluri_stat":TitluriStat}
+    return {'sa': sa, 'so': so, 'db': db, 'User': User, "Bond_stat":Bond}

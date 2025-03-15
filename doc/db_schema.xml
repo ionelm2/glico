@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="424" y="1090" name="TitluriStat">
+</datatypes><table x="424" y="1090" name="Bond">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -66,7 +66,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="804" y="1113" name="TranzactiiTitluri">
+<table x="804" y="1113" name="BondTransactions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -79,9 +79,9 @@
 <row name="value" null="1" autoincrement="0">
 <datatype>DOUBLE</datatype>
 <default>NULL</default></row>
-<row name="id_TitluriStat" null="1" autoincrement="0">
+<row name="id_BondStat" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="TitluriStat" row="id" />
+<default>NULL</default><relation table="Bond" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

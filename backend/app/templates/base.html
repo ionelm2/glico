@@ -36,17 +36,17 @@
                 <td>
                     <table style="width:100%">
                         <tr>
-                            <td><h4>Titluri
+                            <td><h4>Titluri de stat
                             </td>
                             <td></td>
                         </tr>
                         <tr style="padding-left: 10px;">
                             <td></td>
                             <td>
-                                <p><a href="{{ url_for('titluri') }}">Titluri</a>
-                                <p><a href="{{ url_for('adauga_titluri') }}">Adauga Titluri</a>
-                                <p><a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Titluri</a>
-                                <p><a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Titluri</a>
+                                <p><a href="{{ url_for('bond') }}">Lista Titluri de stat</a>
+                                <p><a href="{{ 'bond/create' }}">Adauga Titlu de stat</a>
+                                <p><a href="{{ url_for('add_transaction_bond') }}">Adauga tranzactie Titlu de stat</a>
+                                <p><a href="{{ url_for('transaction_Bond') }}">Lista Tranzactii Titluri de stat</a>
                             </td>
                         </tr>
                     </table>
@@ -54,17 +54,17 @@
                 <td>
                     <table style="width:100%">
                         <tr>
-                            <td><h4>Titluri
+                            <td><h4>Actiuni
                             </td>
                             <td></td>
                         </tr>
                         <tr style="padding-left: 10px;">
                             <td></td>
                             <td>
-                                <p><a href="{{ url_for('titluri') }}">Actiuni</a></p>
-                                <p><a href="{{ url_for('adauga_titluri') }}">Adauga Actiuni</a>
-                                <p><a href="{{ url_for('adauga_tranzactie_titluri') }}">Adauga Tranzactii Actiuni</a>
-                                <p><a href="{{ url_for('tranzactii_titluri') }}">Tranzactii Actiuni</a>
+                                <p><a href="{{ url_for('bond') }}">Lista Actiuni</a></p>
+                                <p><a href="{{ 'bond/create' }}">Adauga Actiuni</a>
+                                <p><a href="{{ url_for('add_transaction_bond') }}">Adauga tranzactii Actiuni</a>
+                                <p><a href="{{ url_for('transaction_Bond') }}">Lista tranzactii Actiuni</a>
                             </td>
                         </tr>
                     </table>

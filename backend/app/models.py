@@ -30,8 +30,8 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
     
-class TitluriStat(db.Model):
-    #__tablename__ = "titluri_Stat1"
+class Bond(db.Model):
+    #__tablename__ = "Bond_Stat1"
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     type: so.Mapped[str] = so.mapped_column(sa.String(20))      # Fidelis/ Tezaur
     # index used to speed up DB queries
@@ -41,22 +41,22 @@ class TitluriStat(db.Model):
     period: so.Mapped[int] = so.mapped_column()
     enddate: so.Mapped[datetime] = so.mapped_column()
     interest: so.Mapped[float] = so.mapped_column()             # Dobanda (e.g., 6.32)
-    tranzactii: so.WriteOnlyMapped['TranzactiiTitluri'] = so.relationship(back_populates='titlu_stat')
+    transaction: so.WriteOnlyMapped['BondTransactions'] = so.relationship(back_populates='bond')
 
     def __repr__(self):
-        return '<Emisiune ticker={}, dobanda={}%>'.format(self.ticker, self.interest)
+        return '<Bond ticker={}, interest={}%>'.format(self.ticker, self.interest)
 
-class TranzactiiTitluri(db.Model):
+class BondTransactions(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     date: so.Mapped[datetime] = so.mapped_column()
     #ticker: so.Mapped[str] = so.mapped_column(sa.String(20), index=True, unique=True)
     operation: so.Mapped[str] = so.mapped_column(sa.String(20))  # EUR/ RON/ USD
     value: so.Mapped[str] = so.mapped_column(sa.String(20))    # Trezorerie/ Tradeville/ XTB
-    titluriStat_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(TitluriStat.id), index=True)
-    titlu_stat: so.Mapped[TitluriStat] = so.relationship(back_populates='tranzactii')
+    BondID: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Bond.id), index=True)
+    bond: so.Mapped[Bond] = so.relationship(back_populates='transaction')
     
     def __repr__(self):
-        return '<Tranzactie {}>'.format(self.ticker, self.value)
+        return '<Transaction {}>'.format(self.ticker, self.value)
     
     
 @login.user_loader

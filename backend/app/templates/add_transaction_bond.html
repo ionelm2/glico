@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>TRanzactii Titluri de stat</h1>
+    <h1>TRanzactii Bond de stat</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -26,9 +26,9 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.valoare.label }}<br>
-            {{ form.valoare(size=32) }}<br>
-            {% for error in form.valoare.errors %}
+            {{ form.amount.label }}<br>
+            {{ form.amount(size=32) }}<br>
+            {% for error in form.amount.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
